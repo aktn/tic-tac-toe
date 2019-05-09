@@ -1,16 +1,16 @@
-interface Score {
+export interface Score {
   [key: string]: number;
   playerA: number;
   playerB: number;
 }
 
-interface Player {
+export interface Player {
   [key: string]: string;
   playerA: string;
   playerB: string;
 }
 
-interface Display {
+export interface Display {
   createBoard(): void;
   updateBoard(): void;
   clearBoard(): void;
@@ -18,4 +18,5 @@ interface Display {
   updateScore(): void;
   declareWinner(): void;
   clearMessage(): void;
+  bindHandler(): void;
 }
