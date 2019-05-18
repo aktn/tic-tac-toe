@@ -1,4 +1,4 @@
-import "./interface.ts";
+import { Player } from "./interface";
 
 class App {
   /*
@@ -6,14 +6,22 @@ class App {
    * board will be depicted on page as 3 rows & 3 colums
    */
   currentPlayer: string;
+  players: Player;
   board: Array<Array<string>>;
 
-  constructor() {}
+  constructor() {
+    this.board = this.createBoard();
+    this.players = { playerA: "x", playerB: "o" };
+  }
 
   /**
    * Creating a game board
    */
-  createBoard = () => {};
+  createBoard = (): Array<Array<string>> => [
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""]
+  ];
 
   /*
    * Display the board once the game has been activated
@@ -25,7 +33,12 @@ class App {
   /*
    * Switch player's turn after each click
    */
-  switchPlayer = (): void => {};
+  switchPlayer = (): void => {
+    this.currentPlayer =
+      this.currentPlayer === this.players.playerA
+        ? this.players.playerB
+        : this.players.playerA;
+  };
 
   /*
    *  Check if the player has won the game
@@ -41,6 +54,13 @@ class App {
    * Clear the board if either the game ends or user reset it
    */
   endGame = (): void => {};
+
+  /*
+   * Reset the board to its initial state
+   */
+  resetGame = (): void => {
+    this.board = this.createBoard();
+  };
 }
 
 const app = new App();
