@@ -18,5 +18,5 @@ export interface Display {
   updateScore(): void;
   declareWinner(): void;
   clearMessage(): void;
-  bindHandler(): void;
+  bindHandler(clickHandler: (column: number, row: number) => void): void;
 }

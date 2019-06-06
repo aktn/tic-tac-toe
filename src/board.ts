@@ -1,6 +1,44 @@
 import { Display } from "./interface";
 
-class board {
+class Board implements Display {
+  /*
+   * Get all available elements from DOM
+   * @param { string } selector
+   * @return { NodeList }
+   */
+  getAllCells = (selector: string) =>
+    <NodeList>document.querySelectorAll(selector);
+
+  createBoard(): void {
+    throw new Error("Method not implemented.");
+  }
+  updateBoard(): void {
+    throw new Error("Method not implemented.");
+  }
+
+  /*
+   * Clear all cells in the board to empty string
+   */
+  clearBoard(): void {
+    const cells = this.getAllCells(".col");
+    cells.forEach(cell => {
+      cell.textContent = "";
+    });
+  }
+
+  displayScore(): void {
+    throw new Error("Method not implemented.");
+  }
+  updateScore(): void {
+    throw new Error("Method not implemented.");
+  }
+  declareWinner(): void {
+    throw new Error("Method not implemented.");
+  }
+  clearMessage(): void {
+    throw new Error("Method not implemented.");
+  }
+
   displayBoard = (data: Array<string>): void => {};
 
   /*
@@ -19,4 +57,4 @@ class board {
   }
 }
 
-export default board;
+export default Board;

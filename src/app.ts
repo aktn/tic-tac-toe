@@ -1,4 +1,5 @@
-import { Player } from "./interface";
+import { Player, Display } from "./interface";
+import Board from "./board";
 
 class App {
   /*
@@ -7,11 +8,15 @@ class App {
    */
   currentPlayer: string;
   players: Player;
+  display: Display;
   board: Array<Array<string>>;
+  wait: number;
 
-  constructor() {
+  constructor(display: Display) {
     this.board = this.createBoard();
     this.players = { playerA: "x", playerB: "o" };
+    this.display = display;
+    this.wait = 2000;
   }
 
   /**
@@ -28,6 +33,10 @@ class App {
    */
   startGame(): void {}
 
+  /*
+   * Tick the cell on the board to determine whether the game still continues or
+   * found a winner or switch a player.
+   */
   tickOnCell = (row: number, column: number) => {};
 
   /*
@@ -53,15 +62,20 @@ class App {
   /*
    * Clear the board if either the game ends or user reset it
    */
-  endGame = (): void => {};
+  endGame = (winner?: string): void => {
+    setTimeout(() => {
+      this.resetGame();
+    }, this.wait);
+  };
 
   /*
    * Reset the board to its initial state
    */
   resetGame = (): void => {
+    this.display.clearBoard();
     this.board = this.createBoard();
   };
 }
 
-const app = new App();
+const app = new App(new Board());
 //app.startGame();
