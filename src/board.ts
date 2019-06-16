@@ -4,10 +4,16 @@ class Board implements Display {
   /**
    * @param{string} htmlTag
    * @param {string} className
+   * @param {Object} collection
    * @return {HTMLElement}
    */
-  createElement = (htmlTag: string, className?: string): HTMLElement => {
+  createElement = (
+    htmlTag: string,
+    className?: string,
+    collection?: Array<any>
+  ): HTMLElement => {
     const htmlElement = document.createElement(htmlTag);
+    if (collection) htmlElement.dataset[collection[0]] = collection[1];
     if (className) htmlElement.classList.add(className);
     return htmlElement;
   };
@@ -20,9 +26,6 @@ class Board implements Display {
   getAllCells = (selector: string) =>
     <NodeList>document.querySelectorAll(selector);
 
-  createBoard(): void {
-    throw new Error("Method not implemented.");
-  }
   updateBoard(): void {
     throw new Error("Method not implemented.");
   }
@@ -37,9 +40,6 @@ class Board implements Display {
     });
   }
 
-  displayScore(): void {
-    throw new Error("Method not implemented.");
-  }
   updateScore(): void {
     throw new Error("Method not implemented.");
   }
@@ -47,7 +47,26 @@ class Board implements Display {
     throw new Error("Method not implemented.");
   }
 
-  displayBoard = (data: Array<string>): void => {};
+  /*
+   * Display board with 3 x 3 dimensional arrays
+   * @param {Array<Array<>>} game board
+   */
+  displayBoard = (data: Array<Array<string>>): void => {
+    const game = document.querySelector("#game");
+    const board = this.createElement("div", "board", null);
+
+    game.append(board);
+
+    data.forEach((row, i) => {
+      const gameRow = this.createElement("div", "row", ["row", i]);
+      board.append(gameRow);
+
+      row.forEach((column, j) => {
+        const gameColumn = this.createElement("div", "column", ["column", j]);
+        gameRow.append(gameColumn);
+      });
+    });
+  };
 
   /*
    * Bind when clicking on the board of the cell & activate callback function

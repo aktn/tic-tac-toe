@@ -11,10 +11,9 @@ export interface Player {
 }
 
 export interface Display {
-  createBoard(): void;
+  displayBoard(boardData: Array<Array<any>>): void;
   updateBoard(): void;
   clearBoard(): void;
-  displayScore(): void;
   updateScore(): void;
   declareWinner(): void;
   clearMessage(): void;
