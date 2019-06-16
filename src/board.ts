@@ -1,6 +1,17 @@
 import { Display } from "./interface";
 
 class Board implements Display {
+  /**
+   * @param{string} htmlTag
+   * @param {string} className
+   * @return {HTMLElement}
+   */
+  createElement = (htmlTag: string, className?: string): HTMLElement => {
+    const htmlElement = document.createElement(htmlTag);
+    if (className) htmlElement.classList.add(className);
+    return htmlElement;
+  };
+
   /*
    * Get all available elements from DOM
    * @param { string } selector
@@ -35,9 +46,6 @@ class Board implements Display {
   declareWinner(): void {
     throw new Error("Method not implemented.");
   }
-  clearMessage(): void {
-    throw new Error("Method not implemented.");
-  }
 
   displayBoard = (data: Array<string>): void => {};
 
@@ -55,6 +63,24 @@ class Board implements Display {
       }
     });
   }
+
+  /**
+   * Declare if there is a winner or stalemate
+   */
+  printMessage = (winner: string): void => {
+    const message = this.createElement("div", "message");
+    const player = winner === "a" ? "Player A" : "Player B";
+    message.textContent = winner ? `${player} wins!` : `No winner :(`;
+
+    const game = document.querySelector("#game");
+    game.append(message);
+  };
+
+  /* Remove printed message */
+  clearMessage = (): void => {
+    const message = document.querySelector(".message");
+    message.remove();
+  };
 }
 
 export default Board;
